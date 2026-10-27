@@ -1,10 +1,16 @@
 import { io } from "socket.io-client"
+import axiosInstance from "./axiosCalls/axios"
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8084"
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || import.meta.env.VITE_API_URL || "http://localhost:8084"
 
-const socket = io(API_URL, {
+const socket = io(SOCKET_URL, {
     autoConnect: false,
-    withCredentials: true
+    withCredentials: true,
+    auth: (cb) => {
+        axiosInstance.get("/auth/socket-token")
+            .then((res) => cb({ token: res.data.token }))
+            .catch(() => cb({}))
+    }
 })
 
 export default socket
