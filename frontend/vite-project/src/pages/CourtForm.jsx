@@ -296,7 +296,7 @@ const CourtForm = () => {
                         accept="image/*"
                         multiple
                         onChange={handleFiles}
-                        className="block w-full text-sm"
+                        className="block w-full text-sm text-gray-600 dark:text-gray-300 file:mr-3 file:px-4 file:py-2 file:rounded-lg file:border-0 file:bg-emerald-600 file:text-white hover:file:bg-emerald-700 file:cursor-pointer"
                     />
                     {files.length > 0 && (
                         <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
