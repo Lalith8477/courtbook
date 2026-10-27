@@ -27,7 +27,7 @@ export const initSocket = (httpServer, allowedOrigins) => {
     io.use(async (socket, next) => {
         try {
             const cookies = parseCookie(socket.handshake.headers.cookie)
-            const token = cookies.token
+            const token = socket.handshake.auth.token || cookies.token
             if (!token) {
                 return next(new Error("Authentication required"))
             }

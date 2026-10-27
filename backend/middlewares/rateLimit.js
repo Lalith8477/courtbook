@@ -11,7 +11,7 @@ export const aiLimiter = rateLimit({
 
 export const authLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    limit: 20,
+    limit: 100,
     standardHeaders: true,
     legacyHeaders: false,
     message: { message: "Too many attempts. Please try again after 15 minutes" }

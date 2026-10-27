@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs"
 import User from "../models/user.model.js"
 import generateToken from "../utils/generateToken.js"
 import cookieOptions from "../utils/cookieOptions.js"
+import jwt from "jsonwebtoken"
 
 const isProduction = process.env.NODE_ENV === "production"
 
@@ -98,6 +99,14 @@ export const logout = async (req, res, next) => {
 export const getMe = async (req, res, next) => {
     try {
         res.status(200).json({ user: formatUser(req.user) })
+    } catch (err) {
+        next(err)
+    }
+}
+export const getSocketToken = async (req, res, next) => {
+    try {
+        const token = jwt.sign({ id: req.user._id }, process.env.JWT_SECRET, { expiresIn: "2m" })
+        res.status(200).json({ token })
     } catch (err) {
         next(err)
     }
